@@ -1,0 +1,177 @@
+/* Importando uma fonte futurista */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
+
+/* Variáveis de cores Cyberpunk */
+:root {
+  --bg-color: #0b0612; /* Fundo preto arroxeado */
+  --card-bg: #160a29; /* Roxo escuro para os cards */
+  --primary-purple: #8a2be2; /* Roxo vibrante */
+  --neon-pink: #ff007f; /* Rosa neon para destaques */
+  --text-color: #e0e0e0; /* Texto claro */
+  --text-dim: #a0a0a0;
+  --border-glow: #a100ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+  /* Fundo escuro com sutil gradiente roxo */
+  background: radial-gradient(circle at 50% 20%, #210535 0%, #0b0612 80%);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--neon-pink);
+  padding-bottom: 15px;
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.8rem;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--primary-purple);
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: var(--neon-pink);
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.student-info {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: var(--text-dim);
+}
+
+.student-info span {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Cards de Resumo */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--primary-purple);
+  /* Cantos retos e futuristas */
+  border-radius: 0px; 
+  padding: 15px;
+  text-align: center;
+  /* Efeito de brilho neon nos cantos */
+  box-shadow: -3px -3px 0px var(--neon-pink), 3px 3px 0px var(--primary-purple);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: -4px -4px 5px var(--neon-pink), 4px 4px 5px var(--primary-purple);
+}
+
+.card h3 {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 8px var(--neon-pink);
+}
+
+.card-status {
+  display: block;
+  font-size: 0.8rem;
+  color: #00ffcc;
+  margin-top: 5px;
+}
+
+/* Tabela Responsiva */
+.table-container {
+  overflow-x: auto;
+  border: 1px solid var(--primary-purple);
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  background-color: #120721;
+}
+
+.report-table th, 
+.report-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #23123d;
+}
+
+.report-table th {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #1c0a36;
+  color: var(--neon-pink);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.report-table tbody tr:hover {
+  background-color: #210c42;
+}
+
+/* Situações com destaques coloridos */
+.status-good {
+  color: #00ffcc;
+  font-weight: bold;
+}
+
+.status-attention {
+  color: var(--neon-pink);
+  font-weight: bold;
+}
+
+.status-pending {
+  color: #888;
+}
+
+/* Layout para telas menores (celular) */
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .report-table th, 
+  .report-table td {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}
