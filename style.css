@@ -1,11 +1,11 @@
 /* =========================================
-   ESTILO CYBERPUNK - BOLETIM DIGITAL
+   ESTILO CYBERPUNK GRAFITE - BOLETIM DIGITAL
    ========================================= */
 
-/* Importa uma fonte que lembra o estilo neon/cyberpunk */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+/* Importa fontes: Permanent Marker (estilo grafite) e Orbitron (números futuristas) */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Permanent+Marker&display=swap');
 
-/* Reset básico para tirar as margens padrão do navegador */
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -13,11 +13,11 @@
 }
 
 body {
-    /* Fundo escuro com um degradê de roxo para preto */
+    /* Fundo escuro com degradê roxo para preto */
     background: linear-gradient(135deg, #0f001a 0%, #2a0044 50%, #000000 100%);
-    background-attachment: fixed; /* O fundo não rola com a página */
+    background-attachment: fixed;
     color: #ffffff;
-    font-family: 'Orbitron', sans-serif; /* Fonte futurista */
+    font-family: 'Permanent Marker', cursive; /* Fonte estilo grafite */
     min-height: 100vh;
     padding: 20px;
 }
@@ -29,24 +29,37 @@ header {
     text-align: center;
     margin-bottom: 30px;
     padding: 20px;
-    border-bottom: 2px solid #ff00ff; /* Linha rosa neon embaixo */
-    box-shadow: 0 4px 15px rgba(255, 0, 255, 0.3); /* Brilho suave */
+    border-bottom: 2px solid #ff00ff;
+    box-shadow: 0 4px 15px rgba(255, 0, 255, 0.3);
+    /* Efeito de "parede de tijolos" sutil no fundo do cabeçalho */
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,0,255,0.1) 20px, rgba(255,0,255,0.1) 22px),
+        repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,0,255,0.1) 40px, rgba(255,0,255,0.1) 42px);
+    background-size: cover;
+    border-radius: 10px;
 }
 
 header h1 {
-    font-size: 2.5rem;
-    color: #ff00ff; /* Rosa neon */
-    /* Efeito de brilho (glow) no texto */
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
-    letter-spacing: 3px;
+    font-size: 3rem;
+    color: #ff00ff;
+    /* Efeito de brilho neon no texto grafite */
+    text-shadow: 
+        0 0 5px #ff00ff, 
+        0 0 15px #ff00ff, 
+        0 0 30px #ff00ff,
+        3px 3px 0 #000000; /* Sombra preta para dar o efeito de tinta */
+    letter-spacing: 4px;
     margin-bottom: 10px;
+    transform: rotate(-2deg); /* Leve inclinação para parecer pixação */
 }
 
 .subtitulo {
     font-size: 1.1rem;
-    color: #00ffff; /* Ciano neon para contraste */
-    text-shadow: 0 0 8px #00ffff;
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff, 2px 2px 0 #000000;
     letter-spacing: 2px;
+    font-family: 'Permanent Marker', cursive;
 }
 
 /* =========================================
@@ -54,71 +67,77 @@ header h1 {
    ========================================= */
 .cards-resumo {
     display: grid;
-    /* Cria colunas automáticas que se ajustam ao tamanho da tela */
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
     margin-bottom: 30px;
 }
 
 .card {
-    background: rgba(20, 0, 30, 0.8); /* Fundo escuro semi-transparente */
-    border: 1px solid #ff00ff;
-    border-radius: 10px;
+    background: rgba(20, 0, 30, 0.8);
+    border: 2px solid #ff00ff;
+    border-radius: 15px; /* Bordas mais arredondadas, estilo adesivo */
     padding: 15px;
     text-align: center;
-    /* Efeito de brilho ao redor do card */
-    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4), inset 0 0 10px rgba(255, 0, 255, 0.1);
+    box-shadow: 
+        0 0 10px rgba(255, 0, 255, 0.4), 
+        inset 0 0 10px rgba(255, 0, 255, 0.1),
+        5px 5px 0px #000000; /* Sombra dura preta, estilo grafite */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Efeito ao passar o mouse no card */
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.8), inset 0 0 15px rgba(255, 0, 255, 0.3);
+    transform: translateY(-5px) rotate(1deg);
+    box-shadow: 
+        0 0 20px rgba(255, 0, 255, 0.8), 
+        inset 0 0 15px rgba(255, 0, 255, 0.3),
+        8px 8px 0px #000000;
 }
 
 .card h3 {
     font-size: 0.9rem;
-    color: #00ffff; /* Ciano neon */
+    color: #00ffff;
     text-shadow: 0 0 5px #00ffff;
     margin-bottom: 10px;
     text-transform: uppercase;
+    font-family: 'Permanent Marker', cursive;
 }
 
 .card p {
     font-size: 1.8rem;
     font-weight: 900;
-    color: #ff00ff; /* Rosa neon */
-    text-shadow: 0 0 10px #ff00ff;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff, 2px 2px 0 #000000;
+    font-family: 'Orbitron', sans-serif; /* Números mais legíveis */
 }
 
 .status-frequencia {
     display: block;
     font-size: 0.75rem;
-    color: #00ff88; /* Verde neon */
+    color: #00ff88;
     text-shadow: 0 0 5px #00ff88;
     margin-top: 5px;
+    font-family: 'Permanent Marker', cursive;
 }
 
 /* =========================================
    TABELA
    ========================================= */
 .tabela-container {
-    overflow-x: auto; /* Permite rolar a tabela no celular */
-    border: 1px solid #ff00ff;
+    overflow-x: auto;
+    border: 2px solid #ff00ff;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.4), 5px 5px 0px #000000;
     background: rgba(10, 0, 15, 0.9);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 700px; /* Força a tabela a não esmagar no celular */
+    min-width: 700px;
 }
 
 thead {
-    background: rgba(255, 0, 255, 0.2); /* Fundo rosa transparente */
+    background: rgba(255, 0, 255, 0.2);
 }
 
 th {
@@ -130,6 +149,7 @@ th {
     border-bottom: 2px solid #ff00ff;
     text-align: center;
     white-space: nowrap;
+    font-family: 'Permanent Marker', cursive;
 }
 
 td {
@@ -138,22 +158,24 @@ td {
     font-size: 0.9rem;
     border-bottom: 1px solid rgba(255, 0, 255, 0.2);
     color: #ffffff;
+    font-family: 'Orbitron', sans-serif; /* Números legíveis */
 }
 
-/* A primeira coluna (nome da disciplina) fica alinhada à esquerda */
+/* Primeira coluna (disciplinas) usa a fonte grafite */
 td:first-child {
     text-align: left;
     font-weight: 700;
     color: #ffffff;
     text-shadow: 0 0 3px rgba(255, 0, 255, 0.5);
+    font-family: 'Permanent Marker', cursive;
 }
 
-/* Efeito zebrado nas linhas da tabela para facilitar a leitura */
+/* Efeito zebrado */
 tbody tr:nth-child(even) {
     background: rgba(255, 0, 255, 0.05);
 }
 
-/* Efeito ao passar o mouse na linha */
+/* Efeito hover na linha */
 tbody tr:hover {
     background: rgba(255, 0, 255, 0.15);
     box-shadow: inset 0 0 10px rgba(255, 0, 255, 0.3);
@@ -161,27 +183,30 @@ tbody tr:hover {
 
 /* Cores das situações */
 .situacao-bom {
-    color: #00ff88; /* Verde neon */
+    color: #00ff88;
     text-shadow: 0 0 5px #00ff88;
     font-weight: bold;
+    font-family: 'Permanent Marker', cursive;
 }
 
 .situacao-atencao {
-    color: #ff0055; /* Vermelho/Rosa neon */
+    color: #ff0055;
     text-shadow: 0 0 5px #ff0055;
     font-weight: bold;
+    font-family: 'Permanent Marker', cursive;
 }
 
 .situacao-sem-nota {
-    color: #888888; /* Cinza */
+    color: #888888;
     font-style: italic;
+    font-family: 'Permanent Marker', cursive;
 }
 
-/* Nota ausente na tabela */
 .nota-ausente {
     color: #666666;
     font-style: italic;
     font-size: 0.8rem;
+    font-family: 'Permanent Marker', cursive;
 }
 
 /* =========================================
@@ -189,7 +214,8 @@ tbody tr:hover {
    ========================================= */
 @media (max-width: 600px) {
     header h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
+        letter-spacing: 2px;
     }
 
     .subtitulo {
@@ -208,4 +234,4 @@ tbody tr:hover {
         padding: 8px 6px;
         font-size: 0.75rem;
     }
-}
+}aa
