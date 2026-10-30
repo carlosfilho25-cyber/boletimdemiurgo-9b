@@ -1,5 +1,5 @@
-/* Importando as fontes: Permanent Marker (estilo pichação/graffiti cyberpunk) e Rajdhani */
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rajdhani:wght@500;700&display=swap');
+/* Importando a fonte estilo Cyberpunk Glitch e Rajdhani */
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Rajdhani:wght@500;700&display=swap');
 
 /* Variáveis de cores Cyberpunk */
 :root {
@@ -24,7 +24,6 @@ body {
   font-family: 'Rajdhani', sans-serif;
   min-height: 100vh;
   padding: 20px;
-  /* Fundo escuro com sutil gradiente roxo */
   background: radial-gradient(circle at 50% 20%, #210535 0%, #0b0612 80%);
 }
 
@@ -41,15 +40,14 @@ body {
   padding-bottom: 15px;
 }
 
-/* Título com a fonte estilo Cyberpunk graffiti/pichação */
+/* Título com a fonte Cyberpunk Glitch */
 .title {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 3.2rem;
+  font-family: 'Rubik Glitch', system-ui;
+  font-size: 3rem;
   color: #fff;
   text-transform: uppercase;
   text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--primary-purple);
-  letter-spacing: 3px;
-  transform: rotate(-1deg); /* Um leve efeito inclinado de pichação */
+  letter-spacing: 2px;
 }
 
 .subtitle {
@@ -57,7 +55,7 @@ body {
   color: var(--neon-pink);
   font-weight: 700;
   margin-top: 5px;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Rubik Glitch', system-ui;
 }
 
 .student-info {
@@ -85,10 +83,93 @@ body {
   border-radius: 0px; 
   padding: 15px;
   text-align: center;
-  /* Efeito de brilho neon nos cantos */
   box-shadow: -3px -3px 0px var(--neon-pink), 3px 3px 0px var(--primary-purple);
   transition: transform 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY
+  transform: translateY(-3px);
+  box-shadow: -4px -4px 5px var(--neon-pink), 4px 4px 5px var(--primary-purple);
+}
+
+.card h3 {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-family: 'Rubik Glitch', system-ui;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 8px var(--neon-pink);
+}
+
+.card-status {
+  display: block;
+  font-size: 0.8rem;
+  color: #00ffcc;
+  margin-top: 5px;
+}
+
+/* Tabela Responsiva */
+.table-container {
+  overflow-x: auto;
+  border: 1px solid var(--primary-purple);
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  background-color: #120721;
+}
+
+.report-table th, 
+.report-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #23123d;
+}
+
+.report-table th {
+  font-family: 'Rubik Glitch', system-ui;
+  background-color: #1c0a36;
+  color: var(--neon-pink);
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+
+.report-table tbody tr:hover {
+  background-color: #210c42;
+}
+
+/* Situações */
+.status-good {
+  color: #00ffcc;
+  font-weight: bold;
+}
+
+.status-attention {
+  color: var(--neon-pink);
+  font-weight: bold;
+}
+
+.status-pending {
+  color: #888;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .report-table th, 
+  .report-table td {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}
