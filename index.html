@@ -4,65 +4,301 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boletim Digital</title>
-    <!-- Link para o arquivo CSS que criaremos depois -->
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Importando as fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           ESTILO CYBERPUNK GRAFITE - BOLETIM DIGITAL
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0010; 
+            color: #ffffff;
+            font-family: 'Permanent Marker', cursive;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Imagem do Batman no fundo (lado direito) */
+        .batman-bg {
+            position: fixed;
+            right: -10%;
+            bottom: -5%;
+            height: 110vh;
+            opacity: 0.6;
+            z-index: -1;
+            pointer-events: none;
+            filter: drop-shadow(0 0 30px #ff00ff) contrast(1.2) brightness(0.8);
+        }
+
+        /* Container principal do Boletim (Projeção Holográfica) */
+        .boletim-holograma {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(15, 0, 25, 0.85);
+            border: 2px solid #ff00ff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 
+                0 0 30px rgba(255, 0, 255, 0.5), 
+                inset 0 0 20px rgba(255, 0, 255, 0.2),
+                10px 10px 0px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        /* CABEÇALHO */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 2px solid #ff00ff;
+            box-shadow: 0 4px 15px rgba(255, 0, 255, 0.3);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,0,255,0.1) 20px, rgba(255,0,255,0.1) 22px),
+                repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,0,255,0.1) 40px, rgba(255,0,255,0.1) 42px);
+            border-radius: 10px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff, 0 0 15px #ff00ff, 3px 3px 0 #000000;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            transform: rotate(-1deg);
+        }
+
+        .subtitulo {
+            font-size: 1rem;
+            color: #00ffff;
+            text-shadow: 0 0 8px #00ffff, 2px 2px 0 #000000;
+            letter-spacing: 2px;
+        }
+
+        /* CARDS DE RESUMO */
+        .cards-resumo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(20, 0, 30, 0.8);
+            border: 2px solid #ff00ff;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.4), inset 0 0 10px rgba(255, 0, 255, 0.1), 5px 5px 0px #000000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8), inset 0 0 15px rgba(255, 0, 255, 0.3), 8px 8px 0px #000000;
+        }
+
+        .card h3 {
+            font-size: 0.9rem;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .card p {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 2px 2px 0 #000000;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .status-frequencia {
+            display: block;
+            font-size: 0.75rem;
+            color: #00ff88;
+            text-shadow: 0 0 5px #00ff88;
+            margin-top: 5px;
+        }
+
+        /* TABELA */
+        .tabela-container {
+            overflow-x: auto;
+            border: 2px solid #ff00ff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.4), 5px 5px 0px #000000;
+            background: rgba(10, 0, 15, 0.9);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        thead {
+            background: rgba(255, 0, 255, 0.2);
+        }
+
+        th {
+            padding: 12px 10px;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid #ff00ff;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 0, 255, 0.2);
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        td:first-child {
+            text-align: left;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 3px rgba(255, 0, 255, 0.5);
+            font-family: 'Permanent Marker', cursive;
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(255, 0, 255, 0.05);
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 0, 255, 0.15);
+            box-shadow: inset 0 0 10px rgba(255, 0, 255, 0.3);
+        }
+
+        /* CORES DAS SITUAÇÕES */
+        .situacao-bom { color: #00ff88; text-shadow: 0 0 5px #00ff88; font-weight: bold; }
+        .situacao-atencao { color: #ff0055; text-shadow: 0 0 5px #ff0055; font-weight: bold; }
+        .situacao-sem-nota { color: #888888; font-style: italic; }
+        .nota-ausente { color: #666666; font-style: italic; font-size: 0.8rem; }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .batman-bg {
+                right: -30%;
+                opacity: 0.3;
+            }
+            header h1 { font-size: 1.8rem; }
+            .boletim-holograma { padding: 10px; }
+            th, td { padding: 8px 6px; font-size: 0.75rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Cabeçalho do site -->
-    <header>
-        <h1>Boletim Digital</h1>
-        <p class="subtitulo">9º Ano - Estudante Exemplo</p>
-    </header>
+    <!-- Imagem do Batman de fundo -->
+    <!-- Certifique-se de que a imagem está na mesma pasta e com o nome correto -->
+    <img src="batman.png" alt="Batman" class="batman-bg">
 
-    <main>
-        <!-- Área dos Cards de Resumo -->
+    <!-- O Boletim -->
+    <div class="boletim-holograma">
+        <header>
+            <h1>BOLETIM DIGITAL</h1>
+            <p class="subtitulo">[NOME DA ESCOLA] // ALUNO: [NOME DO ALUNO]</p>
+        </header>
+
+        <!-- Resumo -->
         <section class="cards-resumo">
             <div class="card">
                 <h3>Média Geral</h3>
-                <p id="card-media-geral">--</p>
-            </div>
-            <div class="card">
-                <h3>Total de Faltas</h3>
-                <p id="card-total-faltas">--</p>
-            </div>
-            <div class="card">
-                <h3>Bom Desempenho</h3>
-                <p id="card-bom-desempenho">--</p>
-            </div>
-            <div class="card">
-                <h3>Precisa de Atenção</h3>
-                <p id="card-atencao">--</p>
+                <p>--</p>
+                <span class="status-frequencia">--</span>
             </div>
             <div class="card">
                 <h3>Frequência</h3>
-                <p id="card-frequencia">--</p>
-                <span class="status-frequencia">Frequência adequada</span>
+                <p>--%</p>
+                <span class="status-frequencia">--</span>
+            </div>
+            <div class="card">
+                <h3>Status</h3>
+                <p style="font-size: 1.2rem; margin-top: 10px;">--</p>
+                <span class="status-frequencia">--</span>
             </div>
         </section>
 
-        <!-- Área da Tabela -->
-        <section class="tabela-container">
+        <!-- Tabela de Notas -->
+        <div class="tabela-container">
             <table>
                 <thead>
                     <tr>
                         <th>Disciplina</th>
-                        <th>1º Tri</th>
-                        <th>2º Tri</th>
-                        <th>3º Tri</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
                         <th>Média</th>
-                        <th>Faltas</th>
                         <th>Situação</th>
                     </tr>
                 </thead>
-                <tbody id="corpo-tabela">
-                    <!-- O JavaScript vai preencher as linhas aqui automaticamente -->
+                <tbody>
+                    <!-- Linha 1 -->
+                    <tr>
+                        <td>[Nome da Disciplina]</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td class="situacao-sem-nota">--</td>
+                    </tr>
+                    <!-- Linha 2 -->
+                    <tr>
+                        <td>[Nome da Disciplina]</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td class="situacao-sem-nota">--</td>
+                    </tr>
+                    <!-- Linha 3 -->
+                    <tr>
+                        <td>[Nome da Disciplina]</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td class="situacao-sem-nota">--</td>
+                    </tr>
+                    <!-- Linha 4 -->
+                    <tr>
+                        <td>[Nome da Disciplina]</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td class="situacao-sem-nota">--</td>
+                    </tr>
+                    <!-- Linha 5 -->
+                    <tr>
+                        <td>[Nome da Disciplina]</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td class="situacao-sem-nota">--</td>
+                    </tr>
                 </tbody>
             </table>
-        </section>
-    </main>
+        </div>
+    </div>
 
-    <!-- Link para o arquivo JavaScript que criaremos no final -->
-    <script src="script.js"></script>
 </body>
 </html>
