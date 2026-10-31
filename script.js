@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             notasDaMateria.forEach((input) => {
                 const valor = parseFloat(input.value);
-                // Verifica se é um número válido
                 if (!isNaN(valor)) {
                     somaNotas += valor;
                     notasContadas++;
@@ -32,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
             
             celulaMedia.textContent = mediaMateria.toFixed(1);
 
-            // Define a situação (Aprovado >= 6, Atenção < 6)
             celulaSituacao.className = "situacao";
             if (notasContadas === 0) {
                 celulaSituacao.textContent = "--";
@@ -73,11 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Roda o cálculo sempre que o usuário digitar
     inputsNotas.forEach((input) => {
         input.addEventListener("input", calcularBoletim);
     });
 
-    // Roda o cálculo uma vez ao abrir a página
     calcularBoletim();
 });
