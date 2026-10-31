@@ -16,39 +16,34 @@ body {
     min-height: 100vh;
     padding: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Joga o boletim mais pra esquerda */
     align-items: center;
     overflow-x: hidden;
     position: relative;
 }
 
 /* =========================================
-   ESTILO DO BATMAN EM SVG
+   BATMAN DE FUNDO
    ========================================= */
-.batman-svg {
+.batman-bg {
     position: fixed;
-    right: -5vw;
+    right: -5vw; /* Cola no canto direito */
     bottom: -5vh;
-    height: 105vh;
-    width: auto;
-    opacity: 0.8;
-    z-index: 1;
-    pointer-events: none;
+    height: 110vh; /* Tamanho gigante */
+    opacity: 0.9; 
+    z-index: 1; /* Fica atrás do boletim */
+    pointer-events: none; /* Permite clicar no boletim sem o Batman atrapalhar */
     
-    /* Animação de flutuar e brilho */
-    animation: 
-        flutuar 6s ease-in-out infinite alternate,
-        neonPulse 3s infinite alternate;
+    /* Brilho neon roxo/rosa no contorno dele */
+    filter: drop-shadow(0 0 20px #ff00ff) contrast(1.2) brightness(0.9);
+    
+    /* Animação de flutuar */
+    animation: flutuar 6s ease-in-out infinite alternate;
 }
 
 @keyframes flutuar {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-25px); }
-}
-
-@keyframes neonPulse {
-    0% { filter: drop-shadow(0 0 10px #ff00ff) contrast(1.1); }
-    100% { filter: drop-shadow(0 0 30px #00ffff) contrast(1.3); }
+    0% { transform: translateY(0px) scale(1); }
+    100% { transform: translateY(-20px) scale(1.02); }
 }
 
 /* =========================================
@@ -56,7 +51,7 @@ body {
    ========================================= */
 .boletim-holograma {
     width: 100%;
-    max-width: 900px;
+    max-width: 800px; /* Um pouco mais estreito para caber o Batman ao lado */
     background: rgba(10, 0, 20, 0.85);
     border: 2px solid #ff00ff;
     border-radius: 15px;
@@ -66,8 +61,9 @@ body {
         inset 0 0 20px rgba(255, 0, 255, 0.2),
         10px 10px 0px rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(12px);
-    z-index: 10;
+    z-index: 10; /* Na frente do Batman */
     position: relative;
+    margin-left: 5%; /* Empurra o boletim um pouco pra direita */
 }
 
 header {
@@ -220,8 +216,9 @@ tbody tr:hover { background: rgba(255, 0, 255, 0.15); box-shadow: inset 0 0 10px
 .situacao-atencao { color: #ff0055; text-shadow: 0 0 5px #ff0055; font-weight: bold; }
 .situacao-sem-nota { color: #888888; font-style: italic; }
 
-@media (max-width: 768px) {
-    .batman-svg { right: -20vw; height: 80vh; opacity: 0.4; }
+@media (max-width: 900px) {
+    .batman-bg { right: -20vw; height: 80vh; opacity: 0.3; }
+    .boletim-holograma { margin-left: 0; width: 100%; }
     header h1 { font-size: 1.8rem; }
     .boletim-holograma { padding: 10px; }
     th, td { padding: 8px 6px; font-size: 0.75rem; }
