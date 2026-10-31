@@ -4,223 +4,184 @@
     box-sizing: border-box;
 }
 
-html {
-    background: linear-gradient(135deg, #0f001a 0%, #2a0044 50%, #000000 100%);
-    background-attachment: fixed;
-}
-
 body {
-    background: transparent;
-    color: #ffffff;
-    font-family: 'Permanent Marker', cursive;
+    background-color: #030508;
+    color: #e2e8f0;
+    font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
-    padding: 20px;
-    display: flex;
-    justify-content: flex-start; /* Joga o boletim mais pra esquerda */
-    align-items: center;
     overflow-x: hidden;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* =========================================
-   BATMAN DE FUNDO
-   ========================================= */
-.batman-bg {
+/* Canvas 3D para Chuva, Lua e Batman */
+#canvas-container {
     position: fixed;
-    right: -5vw; /* Cola no canto direito */
-    bottom: -5vh;
-    height: 110vh; /* Tamanho gigante */
-    opacity: 0.9; 
-    z-index: 1; /* Fica atrás do boletim */
-    pointer-events: none; /* Permite clicar no boletim sem o Batman atrapalhar */
-    
-    /* Brilho neon roxo/rosa no contorno dele */
-    filter: drop-shadow(0 0 20px #ff00ff) contrast(1.2) brightness(0.9);
-    
-    /* Animação de flutuar */
-    animation: flutuar 6s ease-in-out infinite alternate;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
 }
 
-@keyframes flutuar {
-    0% { transform: translateY(0px) scale(1); }
-    100% { transform: translateY(-20px) scale(1.02); }
+/* Iluminação ambiente escura de Gotham */
+.gotham-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 75% 20%, rgba(30, 41, 59, 0.2) 0%, rgba(2, 6, 23, 0.85) 70%, #010308 100%);
+    z-index: 2;
+    pointer-events: none;
 }
 
-/* =========================================
-   BOLETIM (HOLOGRAMA)
-   ========================================= */
-.boletim-holograma {
-    width: 100%;
-    max-width: 800px; /* Um pouco mais estreito para caber o Batman ao lado */
-    background: rgba(10, 0, 20, 0.85);
-    border: 2px solid #ff00ff;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 
-        0 0 30px rgba(255, 0, 255, 0.5), 
-        inset 0 0 20px rgba(255, 0, 255, 0.2),
-        10px 10px 0px rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(12px);
-    z-index: 10; /* Na frente do Batman */
+/* Boletim Escolar (Interface Dark) */
+.boletim-container {
     position: relative;
-    margin-left: 5%; /* Empurra o boletim um pouco pra direita */
+    z-index: 10;
+    width: 100%;
+    max-width: 750px;
+    background: rgba(11, 15, 25, 0.85);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    margin: 20px;
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
-    padding: 20px;
-    border-bottom: 2px solid #ff00ff;
-    box-shadow: 0 4px 15px rgba(255, 0, 255, 0.3);
-    background-image: 
-        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-        repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,0,255,0.1) 20px, rgba(255,0,255,0.1) 22px),
-        repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,0,255,0.1) 40px, rgba(255,0,255,0.1) 42px);
-    border-radius: 10px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 header h1 {
-    font-size: 2.5rem;
-    color: #ff00ff;
-    text-shadow: 0 0 5px #ff00ff, 0 0 15px #ff00ff, 3px 3px 0 #000000;
-    letter-spacing: 4px;
-    margin-bottom: 10px;
-    transform: rotate(-1deg);
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    color: #f1f5f9;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
 
 .subtitulo {
-    font-size: 1rem;
-    color: #00ffff;
-    text-shadow: 0 0 8px #00ffff, 2px 2px 0 #000000;
-    letter-spacing: 2px;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 #nome-aluno {
-    color: #ff00ff;
-    text-shadow: 0 0 5px #ff00ff;
+    color: #38bdf8;
+    font-weight: 600;
 }
 
 .cards-resumo {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .card {
-    background: rgba(20, 0, 30, 0.8);
-    border: 2px solid #ff00ff;
-    border-radius: 15px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 8px;
     padding: 15px;
     text-align: center;
-    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4), inset 0 0 10px rgba(255, 0, 255, 0.1), 5px 5px 0px #000000;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px) rotate(1deg);
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.8), inset 0 0 15px rgba(255, 0, 255, 0.3), 8px 8px 0px #000000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
 .card h3 {
-    font-size: 0.9rem;
-    color: #00ffff;
-    text-shadow: 0 0 5px #00ffff;
-    margin-bottom: 10px;
+    font-size: 0.75rem;
+    color: #94a3b8;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
 }
 
 .card p {
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: #ff00ff;
-    text-shadow: 0 0 10px #ff00ff, 2px 2px 0 #000000;
-    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #f8fafc;
+    font-family: 'Cinzel', serif;
 }
 
 .status-frequencia {
     display: block;
-    font-size: 0.75rem;
-    color: #00ff88;
-    text-shadow: 0 0 5px #00ff88;
+    font-size: 0.7rem;
+    color: #4ade80;
     margin-top: 5px;
 }
 
 .tabela-container {
     overflow-x: auto;
-    border: 2px solid #ff00ff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 0, 255, 0.4), 5px 5px 0px #000000;
-    background: rgba(10, 0, 15, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 8px;
+    background: rgba(8, 12, 20, 0.8);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px;
+    min-width: 550px;
 }
 
-thead { background: rgba(255, 0, 255, 0.2); }
+thead {
+    background: rgba(30, 41, 59, 0.5);
+}
 
 th {
     padding: 12px 10px;
-    color: #00ffff;
-    text-shadow: 0 0 5px #00ffff;
-    font-size: 0.85rem;
+    color: #38bdf8;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    border-bottom: 2px solid #ff00ff;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
     text-align: center;
-    white-space: nowrap;
 }
 
 td {
     padding: 10px;
     text-align: center;
-    font-size: 0.9rem;
-    border-bottom: 1px solid rgba(255, 0, 255, 0.2);
-    color: #ffffff;
-    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    color: #cbd5e1;
 }
 
 td:first-child {
     text-align: left;
-    font-weight: 700;
-    color: #ffffff;
-    text-shadow: 0 0 3px rgba(255, 0, 255, 0.5);
-    font-family: 'Permanent Marker', cursive;
+    font-weight: 600;
+    color: #f1f5f9;
 }
 
 input.nota {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid #ff00ff;
-    color: #00ffff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1rem;
-    width: 70px;
-    padding: 5px;
+    background: rgba(3, 7, 18, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    color: #38bdf8;
+    font-size: 0.9rem;
+    width: 65px;
+    padding: 6px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 4px;
     outline: none;
-    box-shadow: inset 0 0 5px rgba(255, 0, 255, 0.5);
+    transition: all 0.3s;
 }
 
 input.nota:focus {
-    box-shadow: 0 0 10px #00ffff, inset 0 0 5px rgba(255, 0, 255, 0.8);
-    border-color: #00ffff;
+    border-color: #38bdf8;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
 }
 
-tbody tr:nth-child(even) { background: rgba(255, 0, 255, 0.05); }
-tbody tr:hover { background: rgba(255, 0, 255, 0.15); box-shadow: inset 0 0 10px rgba(255, 0, 255, 0.3); }
-
-.situacao-bom { color: #00ff88; text-shadow: 0 0 5px #00ff88; font-weight: bold; }
-.situacao-atencao { color: #ff0055; text-shadow: 0 0 5px #ff0055; font-weight: bold; }
-.situacao-sem-nota { color: #888888; font-style: italic; }
-
-@media (max-width: 900px) {
-    .batman-bg { right: -20vw; height: 80vh; opacity: 0.3; }
-    .boletim-holograma { margin-left: 0; width: 100%; }
-    header h1 { font-size: 1.8rem; }
-    .boletim-holograma { padding: 10px; }
-    th, td { padding: 8px 6px; font-size: 0.75rem; }
-    input.nota { width: 55px; font-size: 0.8rem; }
+tbody tr:hover {
+    background: rgba(30, 41, 59, 0.2);
 }
+
+.situacao-bom { color: #4ade80; font-weight: 600; }
+.situacao-atencao { color: #f43f5e; font-weight: 600; }
