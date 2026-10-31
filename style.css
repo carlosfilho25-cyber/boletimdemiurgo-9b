@@ -1,7 +1,6 @@
 /* =========================================
    ESTILO CYBERPUNK GRAFITE - BOLETIM DIGITAL
    ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Permanent+Marker&display=swap');
 
 * {
     margin: 0;
@@ -9,8 +8,14 @@
     box-sizing: border-box;
 }
 
+/* O fundo fica no HTML para não esconder o Batman */
+html {
+    background: linear-gradient(135deg, #0f001a 0%, #2a0044 50%, #000000 100%);
+    background-attachment: fixed;
+}
+
 body {
-    background: #0a0010; 
+    background: transparent;
     color: #ffffff;
     font-family: 'Permanent Marker', cursive;
     min-height: 100vh;
@@ -18,33 +23,45 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
     overflow-x: hidden;
+    position: relative;
 }
 
-/* Imagem do Batman no fundo */
+/* =========================================
+   BATMAN ANIMADO NO FUNDO
+   ========================================= */
 .batman-bg {
     position: fixed;
     right: -5%;
-    bottom: -5%;
+    bottom: -10%;
     height: 110vh;
-    opacity: 0.6;
-    z-index: -1;
-    pointer-events: none;
-    filter: drop-shadow(0 0 30px #ff00ff) contrast(1.2) brightness(0.8);
-    animation: flutuar 6s ease-in-out infinite alternate;
+    opacity: 0.35; /* Transparência para não ofuscar a leitura */
+    z-index: 0; /* Atrás do boletim */
+    pointer-events: none; /* Permite clicar no que estiver na frente */
+    
+    /* Animação combinada: flutuar e brilho neon */
+    animation: 
+        flutuar 6s ease-in-out infinite alternate,
+        neonPulse 3s infinite alternate;
 }
 
-/* Animação do Batman flutuando levemente */
 @keyframes flutuar {
     0% { transform: translateY(0px); }
-    100% { transform: translateY(-20px); }
+    100% { transform: translateY(-30px); }
 }
 
+@keyframes neonPulse {
+    0% { filter: contrast(1.2) brightness(0.8) drop-shadow(0 0 15px #ff00ff); }
+    100% { filter: contrast(1.2) brightness(1.2) drop-shadow(0 0 40px #00ffff); }
+}
+
+/* =========================================
+   BOLETIM (HOLOGRAMA)
+   ========================================= */
 .boletim-holograma {
     width: 100%;
     max-width: 900px;
-    background: rgba(15, 0, 25, 0.85);
+    background: rgba(10, 0, 20, 0.85); /* Fundo escuro semi-transparente */
     border: 2px solid #ff00ff;
     border-radius: 15px;
     padding: 20px;
@@ -52,8 +69,9 @@ body {
         0 0 30px rgba(255, 0, 255, 0.5), 
         inset 0 0 20px rgba(255, 0, 255, 0.2),
         10px 10px 0px rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    z-index: 1;
+    backdrop-filter: blur(12px); /* Efeito de vidro */
+    z-index: 10; /* Na frente do Batman */
+    position: relative;
 }
 
 /* CABEÇALHO */
@@ -77,13 +95,6 @@ header h1 {
     letter-spacing: 4px;
     margin-bottom: 10px;
     transform: rotate(-1deg);
-    animation: neon-pisca 3s infinite alternate;
-}
-
-/* Efeito de luz neon piscando */
-@keyframes neon-pisca {
-    0%, 100% { text-shadow: 0 0 5px #ff00ff, 0 0 15px #ff00ff, 0 0 30px #ff00ff, 3px 3px 0 #000000; }
-    50% { text-shadow: 0 0 2px #ff00ff, 0 0 5px #ff00ff, 3px 3px 0 #000000; }
 }
 
 .subtitulo {
@@ -222,9 +233,9 @@ tbody tr:hover { background: rgba(255, 0, 255, 0.15); box-shadow: inset 0 0 10px
 
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {
-    .batman-bg { right: -30%; opacity: 0.3; }
+    .batman-bg { right: -25%; opacity: 0.2; height: 80vh;}
     header h1 { font-size: 1.8rem; }
     .boletim-holograma { padding: 10px; }
     th, td { padding: 8px 6px; font-size: 0.75rem; }
-    input.nota { width: 50px; font-size: 0.8rem; }
+    input.nota { width: 55px; font-size: 0.8rem; }
 }
