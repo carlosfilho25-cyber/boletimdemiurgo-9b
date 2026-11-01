@@ -3,39 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boletim Escolar - Gotham City</title>
+    <title>Boletim Escolar - Gotham Dark</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     
-    <!-- Three.js -->
+    <!-- Three.js para o ambiente de Chuva e Lua -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Container do 3D (Fundo 3D) -->
+    <!-- Fundo 3D (Céu escuro, Lua e Chuva) -->
     <div id="canvas-container"></div>
 
-    <!-- Interface do Boletim (Fica à frente) -->
+    <!-- Imagem Real HD do Batman (Substitui o modelo 3D quadrado) -->
+    <img src="https://i.ibb.co/3TL5x1N/batman-pattinson.png" alt="Batman Real" class="batman-real">
+
+    <!-- Boletim Escolar (Alinhado à Esquerda) -->
     <main class="boletim-container">
         <header>
-            <h1>GOTHAM ACADEMY</h1>
-            <p class="subtitulo">SISTEMA ACADÊMICO // ALUNO: <span id="nome-aluno">BRUCE WAYNE</span></p>
+            <h1>BOLETIM ESCOLAR</h1>
+            <p class="subtitulo">ALUNO: <input type="text" id="nome-aluno" value="SEU NOME AQUI"></p>
         </header>
 
         <section class="cards-resumo">
             <div class="card">
                 <h3>Média Geral</h3>
-                <p id="media-geral">9.2</p>
+                <p id="media-geral">8.7</p>
             </div>
             <div class="card">
                 <h3>Frequência</h3>
-                <p>98%</p>
-                <span class="status-frequencia">● EXCELENTE</span>
+                <p>95%</p>
+                <span class="status-frequencia">● NORMAL</span>
             </div>
             <div class="card">
                 <h3>Situação</h3>
@@ -47,7 +50,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Disciplina</th>
+                        <th>Matéria</th>
                         <th>1º Bimestre</th>
                         <th>2º Bimestre</th>
                         <th>Média</th>
@@ -56,31 +59,38 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Criminologia Forense</td>
-                        <td><input type="number" class="nota" value="9.5" min="0" max="10" step="0.1"></td>
+                        <td>Língua Portuguesa</td>
+                        <td><input type="number" class="nota" value="8.5" min="0" max="10" step="0.1"></td>
                         <td><input type="number" class="nota" value="9.0" min="0" max="10" step="0.1"></td>
+                        <td class="media-disc">8.8</td>
+                        <td class="situacao-bom">Aprovado</td>
+                    </tr>
+                    <tr>
+                        <td>Matemática</td>
+                        <td><input type="number" class="nota" value="8.0" min="0" max="10" step="0.1"></td>
+                        <td><input type="number" class="nota" value="8.5" min="0" max="10" step="0.1"></td>
+                        <td class="media-disc">8.3</td>
+                        <td class="situacao-bom">Aprovado</td>
+                    </tr>
+                    <tr>
+                        <td>História</td>
+                        <td><input type="number" class="nota" value="9.0" min="0" max="10" step="0.1"></td>
+                        <td><input type="number" class="nota" value="9.5" min="0" max="10" step="0.1"></td>
                         <td class="media-disc">9.3</td>
                         <td class="situacao-bom">Aprovado</td>
                     </tr>
                     <tr>
-                        <td>Tecnologia WayneTech</td>
-                        <td><input type="number" class="nota" value="10.0" min="0" max="10" step="0.1"></td>
-                        <td><input type="number" class="nota" value="9.5" min="0" max="10" step="0.1"></td>
-                        <td class="media-disc">9.8</td>
-                        <td class="situacao-bom">Aprovado</td>
-                    </tr>
-                    <tr>
-                        <td>Artes Marciais e Defesa</td>
-                        <td><input type="number" class="nota" value="10.0" min="0" max="10" step="0.1"></td>
-                        <td><input type="number" class="nota" value="10.0" min="0" max="10" step="0.1"></td>
-                        <td class="media-disc">10.0</td>
-                        <td class="situacao-bom">Aprovado</td>
-                    </tr>
-                    <tr>
-                        <td>Química e Farmacologia</td>
-                        <td><input type="number" class="nota" value="7.5" min="0" max="10" step="0.1"></td>
+                        <td>Geografia</td>
+                        <td><input type="number" class="nota" value="8.5" min="0" max="10" step="0.1"></td>
                         <td><input type="number" class="nota" value="8.0" min="0" max="10" step="0.1"></td>
-                        <td class="media-disc">7.8</td>
+                        <td class="media-disc">8.3</td>
+                        <td class="situacao-bom">Aprovado</td>
+                    </tr>
+                    <tr>
+                        <td>Ciências</td>
+                        <td><input type="number" class="nota" value="9.0" min="0" max="10" step="0.1"></td>
+                        <td><input type="number" class="nota" value="9.0" min="0" max="10" step="0.1"></td>
+                        <td class="media-disc">9.0</td>
                         <td class="situacao-bom">Aprovado</td>
                     </tr>
                 </tbody>
