@@ -1,179 +1,169 @@
 const container = document.getElementById('canvas-container');
 
-// Cena, Câmara e Renderizador
+// Cena, Câmera e Renderizador (Fundo Cinza Escuro e Preto)
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x030508, 0.015);
+scene.background = new THREE.Color(0x0a0a0c); // Fundo cinza escuro/preto puro
+scene.fog = new THREE.FogExp2(0x0a0a0c, 0.02);
 
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 1, 9);
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 0, 7);
 
-const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 container.appendChild(renderer.domElement);
 
-// Luzes do ambiente
-const ambientLight = new THREE.AmbientLight(0x1e293b, 1.2);
+// Luzes Cinza/Prata (Sem roxo)
+const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
 scene.add(ambientLight);
 
-const moonLight = new THREE.DirectionalLight(0x93c5fd, 2.5);
-moonLight.position.set(15, 25, 10);
+const moonLight = new THREE.DirectionalLight(0xffffff, 2.0);
+moonLight.position.set(10, 20, 10);
 scene.add(moonLight);
 
-const blueRimLight = new THREE.PointLight(0x0284c7, 3, 20);
-blueRimLight.position.set(-5, 3, 2);
-scene.add(blueRimLight);
+const frontLight = new THREE.DirectionalLight(0xaaaaaa, 1.0);
+frontLight.position.set(-5, 5, 5);
+scene.add(frontLight);
 
-// --- LUA GIGANTE ILUMINADA NO CÉU ---
-const moonGeo = new THREE.SphereGeometry(18, 32, 32);
-const moonMat = new THREE.MeshBasicMaterial({ color: 0xe2e8f0 });
+// --- LUA PRATA ILUMINADA ---
+const moonGeo = new THREE.SphereGeometry(6, 32, 32);
+const moonMat = new THREE.MeshBasicMaterial({ color: 0xe5e7eb });
 const moon = new THREE.Mesh(moonGeo, moonMat);
-moon.position.set(40, 30, -60);
+moon.position.set(12, 8, -20);
 scene.add(moon);
 
-// --- CRIAÇÃO DO MODELO 3D DO BATMAN (ESTILO TACTICAL DARK) ---
+// --- MODELO 3D DO BATMAN (PRETO E CINZA TÁTICO) ---
 const batmanGroup = new THREE.Group();
 
-const armorMaterial = new THREE.MeshStandardMaterial({
-    color: 0x111827,
-    roughness: 0.4,
+const blackArmorMat = new THREE.MeshStandardMaterial({
+    color: 0x111113,
+    roughness: 0.3,
     metalness: 0.8
 });
 
-const goldMaterial = new THREE.MeshStandardMaterial({
-    color: 0xd97706,
+const darkGreyMat = new THREE.MeshStandardMaterial({
+    color: 0x222226,
+    roughness: 0.5,
+    metalness: 0.5
+});
+
+const silverMat = new THREE.MeshStandardMaterial({
+    color: 0x888888,
     metalness: 0.9,
     roughness: 0.2
 });
 
-// Cabeça / Cowl
+// Cabeça / Máscara
 const headGeo = new THREE.BoxGeometry(0.7, 0.8, 0.7);
-const head = new THREE.Mesh(headGeo, armorMaterial);
+const head = new THREE.Mesh(headGeo, blackArmorMat);
 head.position.set(0, 2.1, 0);
 batmanGroup.add(head);
 
-// Orelhas do Batman
-const earGeo = new THREE.ConeGeometry(0.12, 0.5, 4);
-const leftEar = new THREE.Mesh(earGeo, armorMaterial);
-leftEar.position.set(0.25, 2.6, 0);
+// Orelhas
+const earGeo = new THREE.ConeGeometry(0.12, 0.6, 4);
+const leftEar = new THREE.Mesh(earGeo, blackArmorMat);
+leftEar.position.set(0.25, 2.7, 0);
 leftEar.rotation.z = -0.1;
 batmanGroup.add(leftEar);
 
 const rightEar = leftEar.clone();
-rightEar.position.set(-0.25, 2.6, 0);
+rightEar.position.set(-0.25, 2.7, 0);
 rightEar.rotation.z = 0.1;
 batmanGroup.add(rightEar);
 
-// Torso / Armadura Tática
+// Peito / Torso
 const torsoGeo = new THREE.BoxGeometry(1.4, 1.8, 0.8);
-const torso = new THREE.Mesh(torsoGeo, armorMaterial);
+const torso = new THREE.Mesh(torsoGeo, darkGreyMat);
 torso.position.set(0, 0.8, 0);
 batmanGroup.add(torso);
 
-// Emblema do Morcego no Peito
-const emblemGeo = new THREE.BoxGeometry(0.5, 0.25, 0.1);
-const emblem = new THREE.Mesh(emblemGeo, goldMaterial);
+// Emblema no Peito (Cinza Prata)
+const emblemGeo = new THREE.BoxGeometry(0.6, 0.25, 0.1);
+const emblem = new THREE.Mesh(emblemGeo, silverMat);
 emblem.position.set(0, 1.1, 0.42);
 batmanGroup.add(emblem);
 
-// Capa escura
-const capeGeo = new THREE.PlaneGeometry(2.6, 3.5);
-const capeMat = new THREE.MeshStandardMaterial({ color: 0x020617, roughness: 1.0, side: THREE.DoubleSide });
+// Capa Preta
+const capeGeo = new THREE.PlaneGeometry(3.0, 4.0);
+const capeMat = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 1.0, side: THREE.DoubleSide });
 const cape = new THREE.Mesh(capeGeo, capeMat);
-cape.position.set(0, 0.8, -0.45);
+cape.position.set(0, 0.6, -0.45);
 batmanGroup.add(cape);
 
-// Braço esquerdo segurando o boletim
-const armGeo = new THREE.BoxGeometry(0.4, 1.4, 0.4);
-const leftArm = new THREE.Mesh(armGeo, armorMaterial);
-leftArm.position.set(0.9, 0.9, 0.2);
-leftArm.rotation.z = -0.3;
-leftArm.rotation.x = -0.3;
+// Braços
+const armGeo = new THREE.BoxGeometry(0.45, 1.4, 0.45);
+const leftArm = new THREE.Mesh(armGeo, blackArmorMat);
+leftArm.position.set(0.95, 0.8, 0.2);
+leftArm.rotation.z = -0.2;
 batmanGroup.add(leftArm);
 
-// Braço direito
-const rightArm = new THREE.Mesh(armGeo, armorMaterial);
-rightArm.position.set(-0.9, 0.9, 0);
+const rightArm = new THREE.Mesh(armGeo, blackArmorMat);
+rightArm.position.set(-0.95, 0.8, 0);
 rightArm.rotation.z = 0.2;
 batmanGroup.add(rightArm);
 
-// O Boletim Escolar Holográfico Segurado na Mão
-const boardGeo = new THREE.BoxGeometry(1.2, 1.6, 0.05);
-const boardMat = new THREE.MeshStandardMaterial({ 
-    color: 0x0f172a, 
-    roughness: 0.2,
-    emissive: 0x0284c7,
-    emissiveIntensity: 0.15
-});
-const holdingBoard = new THREE.Mesh(boardGeo, boardMat);
-holdingBoard.position.set(0.5, 0.3, 0.8);
-holdingBoard.rotation.y = -0.3;
-holdingBoard.rotation.z = -0.1;
-batmanGroup.add(holdingBoard);
-
-batmanGroup.position.set(2.2, -1.8, -1);
-batmanGroup.scale.set(1.2, 1.2, 1.2);
+// Posicionamento do Batman (À direita na tela, bem visível)
+batmanGroup.position.set(2.5, -1.2, 0);
+batmanGroup.scale.set(1.3, 1.3, 1.3);
 scene.add(batmanGroup);
 
-// --- SISTEMA DE CHUVA FORTE ANIMADA ---
-const rainCount = 1200;
+// --- ANIMAÇÃO DE CHUVA FORTE ---
+const rainCount = 1500;
 const rainGeo = new THREE.BufferGeometry();
 const rainPositions = new Float32Array(rainCount * 3);
 
 for(let i = 0; i < rainCount * 3; i += 3) {
-    rainPositions[i] = (Math.random() - 0.5) * 25;     
-    rainPositions[i+1] = Math.random() * 20 - 5;       
-    rainPositions[i+2] = (Math.random() - 0.5) * 15;   
+    rainPositions[i] = (Math.random() - 0.5) * 30;
+    rainPositions[i+1] = Math.random() * 20 - 5;
+    rainPositions[i+2] = (Math.random() - 0.5) * 20;
 }
 
 rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
 
 const rainMat = new THREE.PointsMaterial({
-    color: 0x94a3b8,
-    size: 0.06,
+    color: 0xcccccc,
+    size: 0.05,
     transparent: true,
-    opacity: 0.6
+    opacity: 0.7
 });
 
 const rain = new THREE.Points(rainGeo, rainMat);
 scene.add(rain);
 
-// --- ANIMAÇÃO E LOOP DE RENDERIZAÇÃO ---
+// Loop de Animação
 let clock = new THREE.Clock();
 
 function animate() {
     requestAnimationFrame(animate);
     let elapsedTime = clock.getElapsedTime();
 
+    // Chuva caindo
     const positions = rainGeo.attributes.position.array;
     for(let i = 1; i < positions.length; i += 3) {
-        positions[i] -= 0.6; 
+        positions[i] -= 0.5;
         if(positions[i] < -5) {
             positions[i] = 15;
         }
     }
     rainGeo.attributes.position.needsUpdate = true;
 
-    batmanGroup.position.y = -1.8 + Math.sin(elapsedTime * 2) * 0.04;
-    cape.rotation.z = Math.sin(elapsedTime * 4) * 0.03;
-
-    if(Math.random() < 0.008) {
-        moonLight.intensity = 6.0;
-        setTimeout(() => { moonLight.intensity = 2.5; }, 80);
-    }
+    // Animação do Batman (Movimento suave de respiração)
+    batmanGroup.position.y = -1.2 + Math.sin(elapsedTime * 1.5) * 0.03;
+    cape.rotation.z = Math.sin(elapsedTime * 3) * 0.02;
 
     renderer.render(scene, camera);
 }
 
 animate();
 
+// Ajuste ao redimensionar
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// --- INTERATIVIDADE DO BOLETIM (Cálculo dinâmico de notas) ---
+// Cálculo dinâmico de notas
 const inputsNotas = document.querySelectorAll('.nota');
 inputsNotas.forEach(input => {
     input.addEventListener('input', calcularMedias);

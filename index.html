@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,25 +8,23 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     
-    <!-- Three.js para o ambiente 3D e animações -->
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <!-- Ligação ao CSS externo -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Container do 3D (Lua, Chuva e Batman) -->
+    <!-- Container do 3D (Fundo 3D) -->
     <div id="canvas-container"></div>
-    <div class="gotham-overlay"></div>
 
-    <!-- Boletim Escolar -->
+    <!-- Interface do Boletim (Fica à frente) -->
     <main class="boletim-container">
         <header>
             <h1>GOTHAM ACADEMY</h1>
-            <p class="subtitulo">Registo Académico // Aluno: <span id="nome-aluno">Bruce Wayne</span></p>
+            <p class="subtitulo">SISTEMA ACADÊMICO // ALUNO: <span id="nome-aluno">BRUCE WAYNE</span></p>
         </header>
 
         <section class="cards-resumo">
@@ -37,10 +35,10 @@
             <div class="card">
                 <h3>Frequência</h3>
                 <p>98%</p>
-                <span class="status-frequencia">● Excelente</span>
+                <span class="status-frequencia">● EXCELENTE</span>
             </div>
             <div class="card">
-                <h3>Estado</h3>
+                <h3>Situação</h3>
                 <p class="situacao-bom" style="font-size: 1.2rem; margin-top: 5px;">APROVADO</p>
             </div>
         </section>
@@ -50,22 +48,22 @@
                 <thead>
                     <tr>
                         <th>Disciplina</th>
-                        <th>1º Período</th>
-                        <th>2º Período</th>
+                        <th>1º Bimestre</th>
+                        <th>2º Bimestre</th>
                         <th>Média</th>
-                        <th>Estado</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Criminologia e Detenção</td>
+                        <td>Criminologia Forense</td>
                         <td><input type="number" class="nota" value="9.5" min="0" max="10" step="0.1"></td>
                         <td><input type="number" class="nota" value="9.0" min="0" max="10" step="0.1"></td>
                         <td class="media-disc">9.3</td>
                         <td class="situacao-bom">Aprovado</td>
                     </tr>
                     <tr>
-                        <td>Tecnologia Aplicada (WayneTech)</td>
+                        <td>Tecnologia WayneTech</td>
                         <td><input type="number" class="nota" value="10.0" min="0" max="10" step="0.1"></td>
                         <td><input type="number" class="nota" value="9.5" min="0" max="10" step="0.1"></td>
                         <td class="media-disc">9.8</td>
@@ -79,7 +77,7 @@
                         <td class="situacao-bom">Aprovado</td>
                     </tr>
                     <tr>
-                        <td>Química e Farmacologia Forense</td>
+                        <td>Química e Farmacologia</td>
                         <td><input type="number" class="nota" value="7.5" min="0" max="10" step="0.1"></td>
                         <td><input type="number" class="nota" value="8.0" min="0" max="10" step="0.1"></td>
                         <td class="media-disc">7.8</td>
@@ -90,7 +88,6 @@
         </section>
     </main>
 
-    <!-- Ligação ao JavaScript externo -->
     <script src="script.js"></script>
 </body>
 </html>
