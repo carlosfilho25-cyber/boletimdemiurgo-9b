@@ -1,103 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boletim Escolar - Dark</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <!-- Three.js para o ambiente de Chuva e Lua -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boletim Escolar · Gotham Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<canvas id="canvas-container" aria-hidden="true"></canvas>
+<div class="neblina" aria-hidden="true"></div>
+<div id="batman3d" role="img" aria-label="Batman em 3D, arraste para girar"></div>
 
-    <!-- Fundo 3D (Céu escuro, Lua e Chuva) -->
-    <div id="canvas-container"></div>
+<main class="boletim-container">
+  <header>
+    <h1>Gotham Academy</h1>
+    <p class="subtitulo">Boletim escolar de <input id="nome-aluno" type="text" placeholder="digite o nome" maxlength="30" aria-label="Nome do aluno"></p>
+  </header>
 
-    <!-- Imagem Real do Batman (Ajustada para parecer que segura o boletim) -->
-    <img src="https://i.ibb.co/3TL5x1N/batman-pattinson.png" alt="Batman Real" class="batman-real">
+  <section class="cards-resumo" aria-label="Resumo">
+    <div class="card"><h3>Média geral</h3><p id="media-geral">—</p></div>
+    <div class="card"><h3>Frequência</h3><p><input id="freq" class="freq" type="number" min="0" max="100" value="95" aria-label="Frequência em porcentagem">%</p><span id="status-freq" class="status-frequencia"></span></div>
+    <div class="card"><h3>Situação</h3><p id="situacao-geral">—</p></div>
+  </section>
 
-    <!-- Boletim Escolar -->
-    <main class="boletim-container">
-        <header>
-            <h1>BOLETIM ESCOLAR</h1>
-            <p class="subtitulo">ALUNO: <input type="text" id="nome-aluno" placeholder="DIGITE SEU NOME AQUI"></p>
-        </header>
-
-        <section class="cards-resumo">
-            <div class="card">
-                <h3>Média Geral</h3>
-                <p id="media-geral">8.7</p>
-            </div>
-            <div class="card">
-                <h3>Frequência</h3>
-                <p>95%</p>
-                <span class="status-frequencia">● NORMAL</span>
-            </div>
-            <div class="card">
-                <h3>Situação</h3>
-                <p class="situacao-bom" style="font-size: 1.2rem; margin-top: 5px;">APROVADO</p>
-            </div>
-        </section>
-
-        <section class="tabela-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Matéria</th>
-                        <th>1º Bimestre</th>
-                        <th>2º Bimestre</th>
-                        <th>Média</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Língua Portuguesa</td>
-                        <td><input type="number" class="nota" value="8.5" min="0" max="10" step="0.1"></td>
-                        <td><input type="number" class="nota" value="9.0" min="0" max="10" step="0.1"></td>
-                        <td class="media-disc">8.8</td>
-                        <td class="situacao-bom">Aprovado</td>
-                    </tr>
-                    <tr>
-                        <td>Matemática</td>
-                        <td><input type="number" class="nota" value="8.0" min="0" max="10" step="0.1"></td>
-                        <td><input type="number" class="nota" value="8.5" min="0" max="10" step="0.1"></td>
-                        <td class="media-disc">8.3</td>
-                        <td class="situacao-bom">Aprovado</td>
-                    </tr>
-                    <tr>
-                        <td>História</td>
-                        <td><input type="number" class="nota" value="9.0" min="0" max="10" step="0.1"></td>
-                        <td><input type="number" class="nota" value="9.5" min="0" max="10" step="0.1"></td>
-                        <td class="media-disc">9.3</td>
-                        <td class="situacao-bom">Aprovado</td>
-                    </tr>
-                    <tr>
-                        <td>Geografia</td>
-                        <td><input type="number" class="nota" value="8.5" min="0" max="10" step="0.1"></td>
-                        <td><input type="number" class="nota" value="8.0" min="0" max="10" step="0.1"></td>
-                        <td class="media-disc">8.3</td>
-                        <td class="situacao-bom">Aprovado</td>
-                    </tr>
-                    <tr>
-                        <td>Ciências</td>
-                        <td><input type="number" class="nota" value="9.0" min="0" max="10" step="0.1"></td>
-                        <td><input type="number" class="nota" value="9.0" min="0" max="10" step="0.1"></td>
-                        <td class="media-disc">9.0</td>
-                        <td class="situacao-bom">Aprovado</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
-
-    <script src="script.js"></script>
+  <div class="tabela-container">
+    <table>
+      <thead><tr><th>Disciplina</th><th>1º</th><th>2º</th><th>3º</th><th>4º</th><th>Média</th><th>Situação</th></tr></thead>
+      <tbody id="corpo"></tbody>
+    </table>
+  </div>
+  <p class="legenda">Aprovado: média 7 ou mais · Recuperação: de 5 a 6,9 · Reprovado: abaixo de 5</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="batman3d.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
