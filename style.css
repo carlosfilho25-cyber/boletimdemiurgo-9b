@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #050507;
+    background-color: #030406;
     color: #e2e8f0;
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
@@ -14,10 +14,10 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-left: 5vw;
+    padding-left: 6vw;
 }
 
-/* Fundo 3D da Chuva e Lua */
+/* Canvas 3D de fundo (Lua e Chuva) */
 #canvas-container {
     position: fixed;
     top: 0;
@@ -27,41 +27,41 @@ body {
     z-index: 1;
 }
 
-/* Imagem Real do Batman (Fica à direita com iluminação) */
+/* Batman Real alinhado para parecer que segura o boletim */
 .batman-real {
     position: fixed;
-    right: 2vw;
-    bottom: -20px;
-    height: 95vh;
+    right: -2vw;
+    bottom: -5vh;
+    height: 105vh;
     z-index: 5;
     pointer-events: none;
-    filter: drop-shadow(-10px 0 25px rgba(0, 0, 0, 0.9)) contrast(1.1) brightness(0.9);
-    animation: flutuar 5s ease-in-out infinite alternate;
+    filter: drop-shadow(-15px 0 30px rgba(0, 0, 0, 0.95)) contrast(1.15) brightness(0.85);
+    animation: flutuar 6s ease-in-out infinite alternate;
 }
 
 @keyframes flutuar {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-12px); }
+    0% { transform: translateY(0px) scale(1); }
+    100% { transform: translateY(-10px) scale(1.01); }
 }
 
-/* Boletim Escolar (Na frente de tudo) */
+/* Container do Boletim Escolar */
 .boletim-container {
     position: relative;
     z-index: 10;
     width: 100%;
-    max-width: 580px;
-    background: rgba(12, 12, 15, 0.9);
-    border: 1px solid rgba(120, 120, 120, 0.3);
+    max-width: 550px;
+    background: rgba(10, 10, 14, 0.92);
+    border: 1px solid rgba(140, 140, 140, 0.35);
     border-radius: 12px;
     padding: 22px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(12px);
     margin: 20px 0;
 }
 
 header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(120, 120, 120, 0.3);
 }
@@ -83,7 +83,7 @@ header h1 {
 #nome-aluno {
     background: transparent;
     border: none;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px dashed #ffffff;
     color: #ffffff;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
@@ -91,17 +91,22 @@ header h1 {
     padding: 2px 5px;
     outline: none;
     text-align: center;
+    width: 200px;
+}
+
+#nome-aluno::placeholder {
+    color: #777777;
 }
 
 .cards-resumo {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 .card {
-    background: rgba(22, 22, 26, 0.85);
+    background: rgba(20, 20, 25, 0.9);
     border: 1px solid rgba(120, 120, 120, 0.25);
     border-radius: 8px;
     padding: 10px;
@@ -109,13 +114,13 @@ header h1 {
 }
 
 .card h3 {
-    font-size: 0.7rem;
-    color: #999999;
+    font-size: 0.68rem;
+    color: #888888;
     text-transform: uppercase;
 }
 
 .card p {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 800;
     color: #ffffff;
     font-family: 'Cinzel', serif;
@@ -132,7 +137,7 @@ header h1 {
     overflow-x: auto;
     border: 1px solid rgba(120, 120, 120, 0.25);
     border-radius: 8px;
-    background: rgba(8, 8, 10, 0.9);
+    background: rgba(6, 6, 8, 0.95);
 }
 
 table {
@@ -141,13 +146,13 @@ table {
 }
 
 thead {
-    background: rgba(35, 35, 40, 0.8);
+    background: rgba(30, 30, 35, 0.85);
 }
 
 th {
     padding: 10px 8px;
     color: #ffffff;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
     border-bottom: 1px solid rgba(100, 100, 100, 0.3);
     text-align: center;
@@ -156,7 +161,7 @@ th {
 td {
     padding: 8px;
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     border-bottom: 1px solid rgba(80, 80, 80, 0.2);
     color: #cccccc;
 }
@@ -169,7 +174,7 @@ td:first-child {
 
 input.nota {
     background: #000000;
-    border: 1px solid #555555;
+    border: 1px solid #444444;
     color: #ffffff;
     font-size: 0.85rem;
     width: 55px;
@@ -191,8 +196,8 @@ input.nota:focus {
         padding-left: 0;
     }
     .batman-real {
-        opacity: 0.25; /* Reduz opacidade em telas menores para ler melhor */
-        right: -10vw;
+        opacity: 0.2;
+        right: -15vw;
     }
     .boletim-container {
         margin: 10px;

@@ -1,9 +1,9 @@
 const container = document.getElementById('canvas-container');
 
-// Cena Dark (Cinza Escuro e Preto)
+// Cena totalmente preta e cinza escuro
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x050507);
-scene.fog = new THREE.FogExp2(0x050507, 0.02);
+scene.background = new THREE.Color(0x030406);
+scene.fog = new THREE.FogExp2(0x030406, 0.025);
 
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 0, 8);
@@ -13,23 +13,23 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 container.appendChild(renderer.domElement);
 
-// Iluminação da Cena
-const ambientLight = new THREE.AmbientLight(0x444444, 1.5);
+// Iluminação Prata / Branca da Lua
+const ambientLight = new THREE.AmbientLight(0x333333, 1.2);
 scene.add(ambientLight);
 
-const moonLight = new THREE.DirectionalLight(0xffffff, 2.5);
-moonLight.position.set(10, 15, 10);
+const moonLight = new THREE.DirectionalLight(0xffffff, 2.2);
+moonLight.position.set(10, 15, 8);
 scene.add(moonLight);
 
-// --- LUA PRATA ILUMINADA ---
-const moonGeo = new THREE.SphereGeometry(4, 32, 32);
-const moonMat = new THREE.MeshBasicMaterial({ color: 0xeeeeee });
+// --- LUA PRATA NO CÉU ---
+const moonGeo = new THREE.SphereGeometry(4.5, 32, 32);
+const moonMat = new THREE.MeshBasicMaterial({ color: 0xdddddd });
 const moon = new THREE.Mesh(moonGeo, moonMat);
 moon.position.set(8, 6, -12);
 scene.add(moon);
 
 // --- ANIMAÇÃO DE CHUVA FORTE ---
-const rainCount = 1800;
+const rainCount = 2000;
 const rainGeo = new THREE.BufferGeometry();
 const rainPositions = new Float32Array(rainCount * 3);
 
@@ -42,10 +42,10 @@ for(let i = 0; i < rainCount * 3; i += 3) {
 rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
 
 const rainMat = new THREE.PointsMaterial({
-    color: 0xbbbbbb,
-    size: 0.05,
+    color: 0xcccccc,
+    size: 0.045,
     transparent: true,
-    opacity: 0.7
+    opacity: 0.75
 });
 
 const rain = new THREE.Points(rainGeo, rainMat);
@@ -55,10 +55,10 @@ scene.add(rain);
 function animate() {
     requestAnimationFrame(animate);
 
-    // Movimento da chuva a cair
+    // Chuva a cair
     const positions = rainGeo.attributes.position.array;
     for(let i = 1; i < positions.length; i += 3) {
-        positions[i] -= 0.55;
+        positions[i] -= 0.6;
         if(positions[i] < -5) {
             positions[i] = 15;
         }
@@ -66,9 +66,9 @@ function animate() {
     rainGeo.attributes.position.needsUpdate = true;
 
     // Relâmpagos ocasionais
-    if(Math.random() < 0.005) {
-        moonLight.intensity = 6.0;
-        setTimeout(() => { moonLight.intensity = 2.5; }, 70);
+    if(Math.random() < 0.006) {
+        moonLight.intensity = 5.5;
+        setTimeout(() => { moonLight.intensity = 2.2; }, 70);
     }
 
     renderer.render(scene, camera);
@@ -76,7 +76,7 @@ function animate() {
 
 animate();
 
-// Redimensionamento de Janela
+// Ajuste automático na tela
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
