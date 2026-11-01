@@ -3,38 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Boletim Escolar · Gotham Academy</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<title>Boletim Escolar</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<canvas id="canvas-container" aria-hidden="true"></canvas>
-<div class="neblina" aria-hidden="true"></div>
-<div id="batman3d" role="img" aria-label="Batman em 3D, arraste para girar"></div>
-
-<main class="boletim-container">
-  <header>
-    <h1>Gotham Academy</h1>
-    <p class="subtitulo">Boletim escolar de <input id="nome-aluno" type="text" placeholder="digite o nome" maxlength="30" aria-label="Nome do aluno"></p>
-  </header>
-
-  <section class="cards-resumo" aria-label="Resumo">
-    <div class="card"><h3>Média geral</h3><p id="media-geral">—</p></div>
-    <div class="card"><h3>Frequência</h3><p><input id="freq" class="freq" type="number" min="0" max="100" value="95" aria-label="Frequência em porcentagem">%</p><span id="status-freq" class="status-frequencia"></span></div>
-    <div class="card"><h3>Situação</h3><p id="situacao-geral">—</p></div>
+<canvas id="bg"></canvas><div class="neblina"></div><div id="back"></div>
+<main class="boletim" id="card">
+  <h1>Boletim</h1>
+  <section class="resumo">
+    <div class="card"><h3>Média geral</h3><p id="mg">—</p></div>
+    <div class="card"><h3>Frequência</h3><p><input id="freq" class="freq" type="number" min="0" max="100" value="95" aria-label="Frequência">%</p><span id="sf" class="sf"></span></div>
+    <div class="card"><h3>Situação</h3><p id="sg">—</p></div>
   </section>
-
-  <div class="tabela-container">
-    <table>
-      <thead><tr><th>Disciplina</th><th>1º</th><th>2º</th><th>3º</th><th>4º</th><th>Média</th><th>Situação</th></tr></thead>
-      <tbody id="corpo"></tbody>
-    </table>
-  </div>
-  <p class="legenda">Aprovado: média 7 ou mais · Recuperação: de 5 a 6,9 · Reprovado: abaixo de 5</p>
+  <div class="tab"><table><thead><tr><th>Disciplina</th><th>1º</th><th>2º</th><th>3º</th><th>4º</th><th>Média</th><th>Situação</th></tr></thead><tbody id="corpo"></tbody></table></div>
+  <p class="leg">Aprovado: 7 ou mais · Recuperação: de 5 a 6,9 · Reprovado: abaixo de 5</p>
 </main>
+<div id="front"></div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
-<script src="batman3d.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
