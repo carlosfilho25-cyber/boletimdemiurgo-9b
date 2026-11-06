@@ -8,17 +8,48 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<canvas id="bg"></canvas><div class="neblina"></div><div id="back"></div>
+<canvas id="bg"></canvas>
+<div class="neblina"></div>
+<div id="back"></div>
+
 <main class="boletim" id="card">
   <h1>Boletim</h1>
   <section class="resumo">
-    <div class="card"><h3>Média geral</h3><p id="mg">—</p></div>
-    <div class="card"><h3>Frequência</h3><p><input id="freq" class="freq" type="number" min="0" max="100" value="95" aria-label="Frequência">%</p><span id="sf" class="sf"></span></div>
-    <div class="card"><h3>Situação</h3><p id="sg">—</p></div>
+    <div class="card">
+      <h3>Média geral</h3>
+      <p id="mg">—</p>
+    </div>
+    <div class="card">
+      <h3>Frequência</h3>
+      <p><input id="freq" class="freq" type="number" min="0" max="100" value="95" aria-label="Frequência">%</p>
+      <span id="sf" class="sf"></span>
+    </div>
+    <div class="card">
+      <h3>Situação</h3>
+      <p id="sg">—</p>
+    </div>
   </section>
-  <div class="tab"><table><thead><tr><th>Disciplina</th><th>1º</th><th>2º</th><th>3º</th><th>4º</th><th>Média</th><th>Situação</th></tr></thead><tbody id="corpo"></tbody></table></div>
+
+  <div class="tab">
+    <table>
+      <thead>
+        <tr>
+          <th>Disciplina</th>
+          <th>1º</th>
+          <th>2º</th>
+          <th>3º</th>
+          <th>4º</th>
+          <th>Média</th>
+          <th>Situação</th>
+        </tr>
+      </thead>
+      <tbody id="corpo"></tbody>
+    </table>
+  </div>
+
   <p class="leg">Aprovado: 7 ou mais · Recuperação: de 5 a 6,9 · Reprovado: abaixo de 5</p>
 </main>
+
 <div id="front"></div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
 <script src="script.js"></script>

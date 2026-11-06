@@ -1,27 +1,50 @@
-:root{--linha:rgba(140,140,140,.3);--suave:#8b93a1;--sangue:#c8102e;--ok:#4ade80;--rec:#fbbf24;--ruim:#f87171}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#030406;color:#e2e8f0;font-family:'Montserrat',sans-serif;height:100vh;overflow:hidden}
-#bg,#back,#front{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none}
-#bg{z-index:1}#back{z-index:5}#front{z-index:15}
-#back canvas,#front canvas{width:100%;height:100%;display:block}
-.neblina{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 50% 100%,rgba(200,16,46,.32),transparent 60%)}
-.boletim{position:fixed;left:0;top:0;z-index:10;width:560px;transform-origin:0 0;padding:22px;background:rgba(10,10,14,.93);
-  border:1px solid var(--linha);border-top:2px solid var(--sangue);border-radius:10px;box-shadow:0 24px 60px #000,0 0 40px rgba(200,16,46,.18)}
-h1{font:800 1.7rem 'Cinzel',serif;letter-spacing:5px;text-align:center;color:#fff;padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid var(--linha)}
-.resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-.card{background:rgba(20,20,25,.9);border:1px solid var(--linha);border-radius:8px;padding:10px 6px;text-align:center}
-.card h3{font-size:.66rem;color:var(--suave);font-weight:600;margin-bottom:4px}
-.card p{font:800 1.3rem 'Cinzel',serif;color:#fff;min-height:1.8rem}
-.freq{width:3ch;background:none;border:none;border-bottom:1px dashed var(--suave);color:#fff;font:inherit;text-align:center;outline:none;-moz-appearance:textfield}
-.freq::-webkit-inner-spin-button,input.nota::-webkit-inner-spin-button{display:none}
-.sf{display:block;font-size:.65rem;margin-top:2px}
-.tab{border:1px solid var(--linha);border-radius:8px;background:rgba(6,6,8,.95)}
-table{width:100%;border-collapse:collapse}
-th{padding:9px 5px;font-size:.7rem;color:#fff;background:rgba(30,30,35,.85);border-bottom:1px solid var(--linha)}
-td{padding:6px 5px;text-align:center;font-size:.8rem;border-bottom:1px solid rgba(80,80,80,.2);color:#ccc}
-th:first-child,td:first-child{text-align:left;padding-left:10px;font-weight:600;color:#fff}
-tr:last-child td{border-bottom:none}
-input.nota{background:#000;border:1px solid #444;color:#fff;font-size:.82rem;width:46px;padding:3px;text-align:center;border-radius:4px;outline:none;-moz-appearance:textfield}
-input:focus{border-color:#f2c94c}
-.m{font-weight:800;color:#fff}.bom{color:var(--ok);font-weight:600}.rec{color:var(--rec);font-weight:600}.ruim{color:var(--ruim);font-weight:600}
-.leg{margin-top:10px;font-size:.66rem;color:var(--suave);text-align:center}
+/* Fundo da página em tom preto/escuro */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0d0d0d; /* Fundo preto suave */
+  color: #ffffff;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Fundo fixo com gradiente vermelho e preto */
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: radial-gradient(circle at center, #8b0000 0%, #000000 100%);
+}
+
+/* Estilo do cartão do boletim com detalhes em vermelho */
+.boletim {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 900px;
+  background: rgba(15, 15, 15, 0.9); /* Cartão preto semi-transparente */
+  border: 2px solid #8b0000;          /* Borda vermelha */
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.6); /* Brilho vermelho em redor */
+  border-radius: 12px;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+/* Título e destaques em vermelho */
+.boletim h1 {
+  color: #ff3333;
+  text-align: center;
+}
+
+.card {
+  background: #1a1a1a;
+  border: 1px solid #8b0000;
+  border-radius: 8px;
+}
