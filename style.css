@@ -16,7 +16,7 @@ body{
   background:#030406;
   color:#e6ebf5;
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 /* Canvas de fundo (lua + chuva) */
@@ -25,23 +25,31 @@ body{
   inset:0;
   z-index:0;
   display:block;
+  pointer-events:none;
+}
+
+/* Área que centraliza o card */
+#stage{
+  position:relative;
+  z-index:10;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
 }
 
 /* Card do boletim */
 #card{
-  position:fixed;
-  top:0;
-  left:0;
-  width:560px;
-  z-index:10;
+  width:100%;
+  max-width:560px;
   background:rgba(15,18,26,.82);
   backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px); /* Safari */
+  -webkit-backdrop-filter:blur(8px);
   border:1px solid rgba(120,140,180,.25);
   border-radius:16px;
   padding:24px;
   box-shadow:0 20px 60px rgba(0,0,0,.6);
-  transform-origin:top left;
 }
 
 h1{
@@ -87,6 +95,14 @@ input.nota{
   border-radius:6px;
   color:#e6ebf5;
   font-size:.85rem;
+  appearance:textfield;
+  -moz-appearance:textfield;
+}
+
+input.nota::-webkit-outer-spin-button,
+input.nota::-webkit-inner-spin-button{
+  -webkit-appearance:none;
+  margin:0;
 }
 
 input.nota:focus{
@@ -133,6 +149,11 @@ input.nota:focus{
   text-align:center;
 }
 
+#freq:focus{
+  outline:2px solid #4a6fa5;
+  border-color:transparent;
+}
+
 #mg{
   font-weight:700;
   font-size:1.2rem;
@@ -141,4 +162,11 @@ input.nota:focus{
 #sg,
 #sf{
   font-weight:600;
+}
+
+/* Telas pequenas: tabela rola horizontalmente */
+@media (max-width:620px){
+  #card{padding:16px}
+  .tabela-wrap{overflow-x:auto}
+  table{min-width:520px}
 }
