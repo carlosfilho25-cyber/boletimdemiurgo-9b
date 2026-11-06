@@ -2,25 +2,362 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Boletim</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boletim Escolar</title>
+<style>
+  :root{
+    --ok:#3ddc84;
+    --rec:#f5c542;
+    --ruim:#ff5c5c;
+  }
+
+  *{box-sizing:border-box}
+
+  html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+  }
+
+  body{
+    background:#030406;
+    color:#e6ebf5;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    overflow-x:hidden;
+  }
+
+  #bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    display:block;
+    pointer-events:none;
+  }
+
+  #stage{
+    position:relative;
+    z-index:10;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  #card{
+    width:100%;
+    max-width:560px;
+    background:rgba(15,18,26,.82);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border:1px solid rgba(120,140,180,.25);
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 20px 60px rgba(0,0,0,.6);
+  }
+
+  h1{
+    font-size:1.35rem;
+    margin:0 0 16px;
+    letter-spacing:.5px;
+    color:#c9d2e4;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.85rem;
+  }
+
+  th,td{
+    padding:6px 4px;
+    text-align:center;
+    border-bottom:1px solid rgba(120,140,180,.15);
+  }
+
+  th:first-child,
+  td:first-child{
+    text-align:left;
+  }
+
+  th{
+    color:#8fa0c4;
+    font-weight:600;
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+
+  input.nota{
+    width:52px;
+    padding:4px 2px;
+    text-align:center;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(120,140,180,.3);
+    border-radius:6px;
+    color:#e6ebf5;
+    font-size:.85rem;
+    appearance:textfield;
+    -moz-appearance:textfield;
+  }
+
+  input.nota::-webkit-outer-spin-button,
+  input.nota::-webkit-inner-spin-button{
+    -webkit-appearance:none;
+    margin:0;
+  }
+
+  input.nota:focus{
+    outline:2px solid #4a6fa5;
+    border-color:transparent;
+  }
+
+  .m{
+    font-variant-numeric:tabular-nums;
+    font-weight:600;
+  }
+
+  .bom{color:var(--ok)}
+  .rec{color:var(--rec)}
+  .ruim{color:var(--ruim)}
+
+  .resumo{
+    margin-top:20px;
+    padding-top:16px;
+    border-top:1px solid rgba(120,140,180,.2);
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px 24px;
+    align-items:center;
+    font-size:.95rem;
+  }
+
+  .resumo label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#8fa0c4;
+  }
+
+  #freq{
+    width:70px;
+    padding:4px 6px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(120,140,180,.3);
+    border-radius:6px;
+    color:#e6ebf5;
+    text-align:center;
+  }
+
+  #freq:focus{
+    outline:2px solid #4a6fa5;
+    border-color:transparent;
+  }
+
+  #mg{font-weight:700;font-size:1.2rem}
+  #sg,#sf{font-weight:600}
+
+  @media (max-width:620px){
+    #card{padding:16px}
+    .tabela-wrap{overflow-x:auto}
+    table{min-width:520px}
+  }
+</style>
 </head>
 <body>
-<canvas id="bg"></canvas><div class="neblina"></div><div id="back"></div>
-<main class="boletim" id="card">
-  <h1>Boletim</h1>
-  <section class="resumo">
-    <div class="card"><h3>Média geral</h3><p id="mg">—</p></div>
-    <div class="card"><h3>Frequência</h3><p><input id="freq" class="freq" type="number" min="0" max="100" value="95" aria-label="Frequência">%</p><span id="sf" class="sf"></span></div>
-    <div class="card"><h3>Situação</h3><p id="sg">—</p></div>
-  </section>
-  <div class="tab"><table><thead><tr><th>Disciplina</th><th>1º</th><th>2º</th><th>3º</th><th>4º</th><th>Média</th><th>Situação</th></tr></thead><tbody id="corpo"></tbody></table></div>
-  <p class="leg">Aprovado: 7 ou mais · Recuperação: de 5 a 6,9 · Reprovado: abaixo de 5</p>
-</main>
-<div id="front"></div>
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
-<script src="script.js"></script>
+
+<canvas id="bg"></canvas>
+
+<div id="stage">
+  <div id="card">
+    <h1>Boletim Escolar</h1>
+
+    <div class="tabela-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Disciplina</th>
+            <th>1º</th><th>2º</th><th>3º</th><th>4º</th>
+            <th>Média</th>
+            <th>Situação</th>
+          </tr>
+        </thead>
+        <tbody id="corpo"></tbody>
+      </table>
+    </div>
+
+    <div class="resumo">
+      <label>Frequência:
+        <input id="freq" type="number" min="0" max="100" step="1">%
+      </label>
+      <span>Média geral: <span id="mg">—</span></span>
+      <span id="sg">—</span>
+      <span id="sf">—</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== Boletim ===== */
+const DISC = ['Português','Matemática','História','Geografia','Ciências','Inglês','Educação Física','Artes'];
+const KEY = 'boletim-escolar-v1';
+
+// Migração opcional: traz dados da chave antiga (se existirem)
+if (!localStorage.getItem(KEY)) {
+  const old = localStorage.getItem('boletim-batman-v3');
+  if (old) try { localStorage.setItem(KEY, old); } catch(e) {}
+}
+
+let D;
+try { D = JSON.parse(localStorage.getItem(KEY)); } catch(e) {}
+D = D || { freq: 95, notas: {} };
+if (typeof D.freq !== 'number') D.freq = 95;
+if (!D.notas || typeof D.notas !== 'object') D.notas = {};
+
+const $ = id => document.getElementById(id);
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(D)); } catch(e) {} };
+const fmt = n => n.toFixed(1).replace('.', ',');
+const cls = m => m >= 7 ? ['Aprovado','bom'] : m >= 5 ? ['Recuperação','rec'] : ['Reprovado','ruim'];
+
+/* Monta linhas da tabela */
+DISC.forEach((d, i) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML =
+    `<td>${d}</td>` +
+    [0,1,2,3].map(b =>
+      `<td><input class="nota" type="number" min="0" max="10" step="0.1"
+         data-d="${i}" data-b="${b}" aria-label="${d}, ${b+1}º bimestre"></td>`
+    ).join('') +
+    `<td class="m" id="m${i}">—</td><td id="s${i}">—</td>`;
+  $('corpo').appendChild(tr);
+});
+
+/* Inputs de nota */
+document.querySelectorAll('.nota').forEach(el => {
+  const di = +el.dataset.d;
+  const bi = +el.dataset.b;
+  const v = (D.notas[di] || [])[bi];
+  if (v != null) el.value = v;
+
+  el.addEventListener('input', () => {
+    const arr = D.notas[di] = D.notas[di] || [];
+    if (el.value === '') {
+      arr[bi] = null;
+    } else {
+      const n = +el.value;
+      arr[bi] = Number.isFinite(n) ? Math.min(10, Math.max(0, n)) : null;
+    }
+    save();
+    calc();
+  });
+});
+
+/* Frequência */
+$('freq').value = D.freq;
+$('freq').addEventListener('input', e => {
+  const n = +e.target.value;
+  D.freq = Number.isFinite(n) ? Math.min(100, Math.max(0, n)) : 0;
+  save();
+  calc();
+});
+
+/* Cálculo de médias */
+function calc() {
+  const ms = [];
+
+  DISC.forEach((_, i) => {
+    const ns = (D.notas[i] || []).filter(n => typeof n === 'number');
+    const m = ns.length ? ns.reduce((a,b) => a+b, 0) / ns.length : null;
+    const st = $('s' + i);
+
+    if (m === null) {
+      $('m' + i).textContent = '—';
+      st.textContent = '—';
+      st.className = '';
+      return;
+    }
+
+    const [t, c] = cls(m);
+    $('m' + i).textContent = fmt(m);
+    st.textContent = t;
+    st.className = c;
+    ms.push(m);
+  });
+
+  const sg = $('sg');
+  if (ms.length) {
+    const mg = ms.reduce((a,b) => a+b, 0) / ms.length;
+    let [t, c] = cls(mg);
+    if (t === 'Aprovado' && ms.some(m => m < 5)) [t, c] = ['Recuperação','rec'];
+    $('mg').textContent = fmt(mg);
+    sg.textContent = t;
+    sg.className = c;
+  } else {
+    $('mg').textContent = '—';
+    sg.textContent = '—';
+    sg.className = '';
+  }
+
+  const f = D.freq;
+  $('sf').textContent = f >= 75 ? 'Frequência regular' : 'Abaixo do mínimo (75%)';
+  $('sf').style.color = f >= 75 ? 'var(--ok)' : 'var(--ruim)';
+}
+calc();
+
+/* ===== Fundo: lua e chuva ===== */
+const bg = $('bg');
+const cx = bg.getContext('2d');
+const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let W = 0, H = 0, rain = [];
+
+function fit() {
+  W = bg.width = innerWidth;
+  H = bg.height = innerHeight;
+  rain = Array.from({ length: Math.min(260, W / 5 | 0) }, () => ({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    l: 10 + Math.random() * 16,
+    v: 12 + Math.random() * 10
+  }));
+}
+addEventListener('resize', fit);
+fit();
+
+(function sky() {
+  const g = cx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#0a0d14');
+  g.addColorStop(1, '#030406');
+  cx.fillStyle = g;
+  cx.fillRect(0, 0, W, H);
+
+  const mx = W * 0.82, my = H * 0.16, r = Math.min(W, H) * 0.07;
+  const h = cx.createRadialGradient(mx, my, r * 0.8, mx, my, r * 5);
+  h.addColorStop(0, 'rgba(190,205,230,.25)');
+  h.addColorStop(1, 'rgba(190,205,230,0)');
+  cx.fillStyle = h;
+  cx.fillRect(0, 0, W, H);
+
+  cx.fillStyle = '#c9d2e4';
+  cx.beginPath();
+  cx.arc(mx, my, r, 0, Math.PI * 2);
+  cx.fill();
+
+  cx.strokeStyle = 'rgba(170,190,225,.3)';
+  cx.beginPath();
+  rain.forEach(d => {
+    cx.moveTo(d.x, d.y);
+    cx.lineTo(d.x - d.l * 0.25, d.y + d.l);
+    if (!reduz) {
+      d.y += d.v;
+      d.x -= d.v * 0.25;
+      if (d.y > H) { d.y = -20; d.x = Math.random() * W + 40; }
+    }
+  });
+  cx.stroke();
+
+  if (!reduz) requestAnimationFrame(sky);
+})();
+</script>
 </body>
 </html>

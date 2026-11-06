@@ -1,27 +1,172 @@
-:root{--linha:rgba(140,140,140,.3);--suave:#8b93a1;--sangue:#c8102e;--ok:#4ade80;--rec:#fbbf24;--ruim:#f87171}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#030406;color:#e2e8f0;font-family:'Montserrat',sans-serif;height:100vh;overflow:hidden}
-#bg,#back,#front{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none}
-#bg{z-index:1}#back{z-index:5}#front{z-index:15}
-#back canvas,#front canvas{width:100%;height:100%;display:block}
-.neblina{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 50% 100%,rgba(200,16,46,.32),transparent 60%)}
-.boletim{position:fixed;left:0;top:0;z-index:10;width:560px;transform-origin:0 0;padding:22px;background:rgba(10,10,14,.93);
-  border:1px solid var(--linha);border-top:2px solid var(--sangue);border-radius:10px;box-shadow:0 24px 60px #000,0 0 40px rgba(200,16,46,.18)}
-h1{font:800 1.7rem 'Cinzel',serif;letter-spacing:5px;text-align:center;color:#fff;padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid var(--linha)}
-.resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-.card{background:rgba(20,20,25,.9);border:1px solid var(--linha);border-radius:8px;padding:10px 6px;text-align:center}
-.card h3{font-size:.66rem;color:var(--suave);font-weight:600;margin-bottom:4px}
-.card p{font:800 1.3rem 'Cinzel',serif;color:#fff;min-height:1.8rem}
-.freq{width:3ch;background:none;border:none;border-bottom:1px dashed var(--suave);color:#fff;font:inherit;text-align:center;outline:none;-moz-appearance:textfield}
-.freq::-webkit-inner-spin-button,input.nota::-webkit-inner-spin-button{display:none}
-.sf{display:block;font-size:.65rem;margin-top:2px}
-.tab{border:1px solid var(--linha);border-radius:8px;background:rgba(6,6,8,.95)}
-table{width:100%;border-collapse:collapse}
-th{padding:9px 5px;font-size:.7rem;color:#fff;background:rgba(30,30,35,.85);border-bottom:1px solid var(--linha)}
-td{padding:6px 5px;text-align:center;font-size:.8rem;border-bottom:1px solid rgba(80,80,80,.2);color:#ccc}
-th:first-child,td:first-child{text-align:left;padding-left:10px;font-weight:600;color:#fff}
-tr:last-child td{border-bottom:none}
-input.nota{background:#000;border:1px solid #444;color:#fff;font-size:.82rem;width:46px;padding:3px;text-align:center;border-radius:4px;outline:none;-moz-appearance:textfield}
-input:focus{border-color:#f2c94c}
-.m{font-weight:800;color:#fff}.bom{color:var(--ok);font-weight:600}.rec{color:var(--rec);font-weight:600}.ruim{color:var(--ruim);font-weight:600}
-.leg{margin-top:10px;font-size:.66rem;color:var(--suave);text-align:center}
+:root{
+  --ok:#3ddc84;
+  --rec:#f5c542;
+  --ruim:#ff5c5c;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  height:100%;
+}
+
+body{
+  background:#030406;
+  color:#e6ebf5;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  overflow-x:hidden;
+}
+
+/* Canvas de fundo (lua + chuva) */
+#bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  display:block;
+  pointer-events:none;
+}
+
+/* Área que centraliza o card */
+#stage{
+  position:relative;
+  z-index:10;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+/* Card do boletim */
+#card{
+  width:100%;
+  max-width:560px;
+  background:rgba(15,18,26,.82);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(120,140,180,.25);
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+h1{
+  font-size:1.35rem;
+  margin:0 0 16px;
+  letter-spacing:.5px;
+  color:#c9d2e4;
+}
+
+/* Tabela */
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.85rem;
+}
+
+th,td{
+  padding:6px 4px;
+  text-align:center;
+  border-bottom:1px solid rgba(120,140,180,.15);
+}
+
+th:first-child,
+td:first-child{
+  text-align:left;
+}
+
+th{
+  color:#8fa0c4;
+  font-weight:600;
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+/* Inputs de nota */
+input.nota{
+  width:52px;
+  padding:4px 2px;
+  text-align:center;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(120,140,180,.3);
+  border-radius:6px;
+  color:#e6ebf5;
+  font-size:.85rem;
+  appearance:textfield;
+  -moz-appearance:textfield;
+}
+
+input.nota::-webkit-outer-spin-button,
+input.nota::-webkit-inner-spin-button{
+  -webkit-appearance:none;
+  margin:0;
+}
+
+input.nota:focus{
+  outline:2px solid #4a6fa5;
+  border-color:transparent;
+}
+
+/* Média e situação por disciplina */
+.m{
+  font-variant-numeric:tabular-nums;
+  font-weight:600;
+}
+
+.bom{color:var(--ok)}
+.rec{color:var(--rec)}
+.ruim{color:var(--ruim)}
+
+/* Rodapé do card: frequência + média geral */
+.resumo{
+  margin-top:20px;
+  padding-top:16px;
+  border-top:1px solid rgba(120,140,180,.2);
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 24px;
+  align-items:center;
+  font-size:.95rem;
+}
+
+.resumo label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#8fa0c4;
+}
+
+#freq{
+  width:70px;
+  padding:4px 6px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(120,140,180,.3);
+  border-radius:6px;
+  color:#e6ebf5;
+  text-align:center;
+}
+
+#freq:focus{
+  outline:2px solid #4a6fa5;
+  border-color:transparent;
+}
+
+#mg{
+  font-weight:700;
+  font-size:1.2rem;
+}
+
+#sg,
+#sf{
+  font-weight:600;
+}
+
+/* Telas pequenas: tabela rola horizontalmente */
+@media (max-width:620px){
+  #card{padding:16px}
+  .tabela-wrap{overflow-x:auto}
+  table{min-width:520px}
+}
