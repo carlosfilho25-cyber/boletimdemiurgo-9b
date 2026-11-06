@@ -1,6 +1,6 @@
 /* ===== Boletim ===== */
 const DISC = ['Português','Matemática','História','Geografia','Ciências','Inglês','Educação Física','Artes'];
-const KEY = 'boletim-batman-v3';
+const KEY = 'boletim-escolar-v1';
 
 let D;
 try { D = JSON.parse(localStorage.getItem(KEY)); } catch(e) {}
